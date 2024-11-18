@@ -10,11 +10,11 @@ export function TaskCounter({ text, counter }: TaskCounterProps) {
   return (
     <View style={styles.container}>
       <Text
-        style={
-          text === 'Criadas'
-            ? { ...styles.createdTask, ...styles.text }
-            : { ...styles.completedTask, ...styles.text }
-        }
+        style={[
+          styles.text,
+          text === 'Criadas' && styles.createdTask,
+          text === 'Concluídas' && styles.completedTask,
+        ]}
       >
         {text}
       </Text>

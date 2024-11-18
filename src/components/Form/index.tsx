@@ -4,7 +4,11 @@ import { colors } from '../../theme/colors';
 import { PlusSign } from '../PlusSign';
 import { styles } from './styles';
 
-export function Form() {
+interface FormProps {
+  onAddTask: (task: { task: string; done: boolean }) => void;
+}
+
+export function Form({ onAddTask }: FormProps) {
   const [text, setText] = useState<string>('');
   const [inputIsFocused, setInputIsFocused] = useState<boolean>(false);
 
@@ -28,10 +32,16 @@ export function Form() {
           placeholderTextColor={colors.gray300}
           onFocus={() => handleInputStyles(true)}
           onBlur={() => handleInputStyles(false)}
-          maxLength={50}
+          maxLength={70}
         />
       </View>
-      <Pressable style={styles.button}>
+      <Pressable
+        style={styles.button}
+        onPress={() => {
+          onAddTask({ task: text, done: false });
+          setText('');
+        }}
+      >
         <PlusSign />
       </Pressable>
     </View>
